@@ -17,7 +17,7 @@ function parseNumbersAndCards(lines) {
             cards.push(card);
             card = [];
         } else {
-            card.push(line.split(/\s+/).map(Number));
+            card.push(line.trim().split(/\s+/).map(Number));
         }
     }
 
