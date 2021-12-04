@@ -56,25 +56,15 @@ function findWinner(cardsToCheck) {
 
 function isWinner(cardToCheck) {
     for(let i = 0; i < cardToCheck.length; i++) {
-        let winning = true;
-        for(let j = 0; j < cardToCheck[i].length; j++) {
-            if(cardToCheck[i][j] !== 'checked') {
-                winning = false;
-                break;
-            }
+        let winningRow = true;
+        let winningCol = true;
+        for(let j = 0; j < cardToCheck.length && (winningRow || winningCol); j++) {
+            if(cardToCheck[i][j] !== 'checked')
+                winningRow = false;
+            if(cardToCheck[j][i] !== 'checked')
+                winningCol = false;
         }
-        if (winning) return true;
-    }
-
-    for(let i = 0; i < cardToCheck[0].length; i++) {
-        let winning = true;
-        for(let j = 0; j < cardToCheck.length; j++) {
-            if(cardToCheck[j][i] !== 'checked') {
-                winning = false;
-                break;
-            }
-        }
-        if (winning) return true;
+        if (winningRow || winningCol) return true;
     }
 
     return false;
@@ -95,8 +85,6 @@ game = parseNumbersAndCards(lines);
 
 let lastWinner;
 let lastWinNum;
-
-// console.log(cards);
 
 for(num of game.numbers) {
     callNumber(game.cards, num)
