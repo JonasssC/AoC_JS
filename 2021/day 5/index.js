@@ -27,21 +27,19 @@ multipleHitCount = [...coords_hit.values()].reduce((res, val) => val >= 2 ? res 
 console.log('Part 2:', multipleHitCount);
 
 function parsePipes(lines) {
-    let pipes = [];
-    for(let line of lines) {
-        let splitLine = line.split(' -> ');
-        pipes.push({
+    return lines
+        .map(l => l.split(' -> '))
+        .map(sl => sl.map(c => c.split(',')))
+        .map(coords => ({
             from: {
-                x: Number(splitLine[0].split(',')[0]),
-                y: Number(splitLine[0].split(',')[1])
+                x: Number(coords[0][0]),
+                y: Number(coords[0][1])
             },
             to: {
-                x: Number(splitLine[1].split(',')[0]),
-                y: Number(splitLine[1].split(',')[1])
+                x: Number(coords[1][0]),
+                y: Number(coords[1][1])
             }
-        });
-    }
-    return pipes;
+        }));
 }
 
 function markPipe(pipe) {
