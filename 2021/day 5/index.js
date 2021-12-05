@@ -6,25 +6,22 @@ let lines = input
     .split('\r\n')
     .filter(line => line !== "");
 
-let coords_hit = new Map();
 let pipes = parsePipes(lines);
+
+let coords_hit = new Map();
 
 for(let pipe of pipes.filter(pipe => pipe.from.x === pipe.to.x
                                   || pipe.from.y === pipe.to.y)) markPipe(pipe);
 
+const multipleHitCount = () => [...coords_hit.values()].reduce((res, val) => val >= 2 ? res + 1 : res, 0);
 
-let multipleHitCount = [...coords_hit.values()].reduce((res, val) => val >= 2 ? res + 1 : res, 0);
-
-console.log('Part 1:', multipleHitCount);
+console.log('Part 1:', multipleHitCount());
 
 // Part 2
-
 coords_hit.clear();
 for(let pipe of pipes) markPipe(pipe);
 
-multipleHitCount = [...coords_hit.values()].reduce((res, val) => val >= 2 ? res + 1 : res, 0);
-
-console.log('Part 2:', multipleHitCount);
+console.log('Part 2:', multipleHitCount());
 
 function parsePipes(lines) {
     return lines
